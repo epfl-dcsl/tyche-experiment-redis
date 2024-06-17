@@ -22,3 +22,25 @@ refresh:
   @just clean
   @just build-musl
   @just build-redis-server
+  @cp ./tyche-redis/src/redis-server redis-server
+
+# ——————————————————————— Similar but for debugging ———————————————————————— 
+
+MUSL_GCC_DBG := justfile_directory() + "/musl-build-dbg/bin/musl-gcc"
+
+MUSL_INSTALL_DBG := justfile_directory() + "/musl-build-dbg" 
+
+build-musl-dbg:
+  cd tyche-musl && ./configure --prefix={{MUSL_INSTALL_DBG}} --exec-prefix={{MUSL_INSTALL_DBG}} --disable-shared --enable-debug
+  make -C tyche-musl/ -j `nproc`  CFLAGS="-static -Os -Wl,-z,norelro -DTYCHE_DO_INIT=1"
+  make -C tyche-musl/ install 
+
+build-redis-server-dbg:
+  make -C tyche-redis/ CC={{MUSL_GCC_DBG}} CFLAGS="-static -Os -Wl,-z,norelro" LDFLAGS="-static -z norelro" USE_JEMALLOC=no redis-server -j `nproc`
+
+refresh-dbg:
+  @rm -rf musl-build-dbg
+  @just clean
+  @just build-musl-dbg
+  @just build-redis-server-dbg
+  @cp ./tyche-redis/src/redis-server redis-server-dbg

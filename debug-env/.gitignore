@@ -1,0 +1,6 @@
+redis-server
+redis-server-dbg
+old
+app_tcp
+app_stdin
+.gdb_history

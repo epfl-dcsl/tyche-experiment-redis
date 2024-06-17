@@ -55,3 +55,10 @@ musl-build/*
 config.mak
 
 *.strace
+
+# Binaries
+redis-server
+redis-server-dbg
+.gdb_history
+dump.rdb
+musl-build-dbg
