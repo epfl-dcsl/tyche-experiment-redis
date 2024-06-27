@@ -86,7 +86,7 @@ int main() {
         exit(-1);
       }
       waitpid(pid, &status, 0);
-      printf("The child exited.\n");
+      printf("The child %d exited with status %d.\n", pid, status);
       pthread_join(server, NULL);
     }
 

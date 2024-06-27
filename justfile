@@ -38,9 +38,13 @@ build-musl-dbg:
 build-redis-server-dbg:
   make -C tyche-redis/ CC={{MUSL_GCC_DBG}} CFLAGS="-static -Os -Wl,-z,norelro" LDFLAGS="-static -z norelro" USE_JEMALLOC=no redis-server -j `nproc`
 
-refresh-dbg:
+build-dbg:
   @rm -rf musl-build-dbg
   @just clean
   @just build-musl-dbg
   @just build-redis-server-dbg
   @cp ./tyche-redis/src/redis-server redis-server-dbg
+
+build:
+  @just refresh
+  @just build-dbg

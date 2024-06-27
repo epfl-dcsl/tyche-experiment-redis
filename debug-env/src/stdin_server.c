@@ -48,7 +48,7 @@ static int process_input(char *input, redis_app_t *app) {
   // Send the message to the redis enclave.
   int to_write = strlen(input);
   int written = 0;
-  printf("Sending `%s` to redis....", input);
+  printf("Sending `%s` [%d bytes] to redis....", input, to_write);
   while(written < to_write) {
     int res = rb_char_write_n(&(app->to_redis), to_write - written, &input[written]);
     if (res == FAILURE) {

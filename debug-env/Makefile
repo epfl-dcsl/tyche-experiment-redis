@@ -13,10 +13,10 @@ SRCS = $(wildcard src/*.c)
 
 
 app_stdin: $(SRCS)
-	gcc -DRUN_STDIN=1 -DTYCHE_USER_SPACE=1 -o $@ $(INCLUDES) $(SRCS)
+	gcc -g -DRUN_STDIN=1 -DTYCHE_USER_SPACE=1 -o $@ $(INCLUDES) $(SRCS)
 
 app_tcp: $(SRCS)
-	gcc -DRUN_TCP=1 -DTYCHE_USER_SPACE=1 -o $@ $(INCLUDES) $(SRCS)
+	gcc -g -DRUN_TCP=1 -DTYCHE_USER_SPACE=1 -o $@ $(INCLUDES) $(SRCS)
 
 .PHONY: clean
 
